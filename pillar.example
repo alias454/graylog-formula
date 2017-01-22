@@ -1,0 +1,73 @@
+# Set firewall status to Active or InActive for the main
+# firewall service. If you want to disable the firewall,
+# set this to 'InActive' and set the overide firewall
+# to Active for the individual applications
+firewall:
+  firewalld:
+    status: 'Active'
+    default_zone: 'internal'
+
+# Override host options
+# Graylog docs http://docs.graylog.org/en/2.2/
+graylog:
+  lookup:
+    password_secret: '0OckXe4bwAQapvaqbzsugG2DRBRpE3yL5p95O189YUp5a6uKHVS43b0YeHnFcvOPHtXBYDHiXnKbn59TA1TvqwrRWs5mwXpt'
+    root_password_sha2: 'b721104e76006bdac228561e6a64451c031cacd0befc5605a825546261e02fdf' #default password is Graylog2
+    firewall:
+      firewalld:
+        status: 'Active'
+    graylog:
+      restart_service_after_state_change: 'true'
+      install_type: 'package'                                   # Install type can be package or tarball    
+      latest_tarball: 'graylog-2.2.0-beta.6.tgz'                # Name of the release tar file
+      use_redirection: 'false'                                  # Redirect port 80 to port 9000
+      base_dir: '/usr/share'                                    # /usr/share is default for package install
+      log4j2_log_path: '/var/log/graylog-server'                # Path for log files
+      input_source: ['192.168.2.0/24']                          # Allow network access for sending hosts
+      heap_size: '4g'                                           # Graylog HEAP size default is 1g
+      root_timezone: 'America/Chicago'                          # Root users timezone default is UTC
+      root_email: 'admin@domain.tld'                            # Root users email
+      allow_leading_wildcard_searches: 'true'                   # Use a leading wildcard in searches
+      allow_highlighting: 'true'                                # Highlight search term in search results
+      trusted_proxies: '127.0.0.1/32, 0:0:0:0:0:0:0:1/128'      # Trusted proxies
+      rest: 
+        listen_uri: 'http://127.0.0.1:9000/api/'                # Rest listen uri external ip if no reverse proxy
+        transport_uri: ''                                       # Rest transport uri
+        enable_cors: 'true'                                     # Enable CORS
+        enable_gzip: 'true'                                     # Enable gzip
+        thread_pool_size: '16'                                  # Rest thread pool size
+      web:
+        enable: 'true'                                          # Enable/Disable web interface
+        listen_uri: 'http://127.0.0.1:9000/'                    # Web listen uri external ip if no reverse proxy
+        endpoint_uri: ''                                        # Web endpoint uri
+        enable_cors: 'true'                                     # Enable CORS
+        enable_gzip: 'true'                                     # Enable gzip
+        thread_pool_size: '16'                                  # Web thread pool size
+      elasticsearch:
+        shards: '2'                                             # Number of shards to use
+        replicas: '0'                                           # Number of replicas to use
+        index_prefix: 'graylog'                                 # ES index prefix
+        template_name: 'graylog-internal'                       # ES template name
+        cluster_name: 'graylog'                                 # ES cluster name
+        discovery_zen_ping_unicast_hosts: 'graylog00:9300'      # Unicast hosts should be list of es masters
+        node_name_prefix: 'graylog-'                            # ES node name prefix
+      transport_email:
+        enabled: 'false'                                        # Enable/Disable email 
+        hostname: 'mail.domain.tld'                             # Email server hostname
+        port: '465'                                             # Email server port
+        use_auth: 'false'                                       # Email use auth
+        use_tls: 'false'                                        # Email use TLS
+        use_ssl: 'false'                                        # Email use SSL
+        auth_username: 'you@domain.tld'                         # Email auth username 
+        auth_password: 'secret'                                 # Email auth password
+        subject_prefix: '[graylog]'                             # Email subject prefix
+        from_email: 'graylog@domain.tld'                        # Email from address
+        web_interface_url: 'http://graylog00.domain.tld'        # Email web interface link
+      mongodb:
+        uri: 'mongodb://gluser:password@localhost:27017/graylog'
+      sources:
+        - name: 'graylog00'                     # Name of node
+          master: 'true'                        # Node is Master
+          ip: '192.168.2.20'                    # IP address for this node
+          mask: '/32'                           # Subnet Mask for this node
+          fqdn: 'graylog00.alias454.local'      # FQDN for this node

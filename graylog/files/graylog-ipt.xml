@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <service>
+    <short>graylog-ipt</short>
+    <description>Incoming ports for multiple inputs from log sources.</description>
+    <port protocol="tcp" port="10514"/>
+    <port protocol="tcp" port="11510"/>
+    <port protocol="tcp" port="11514"/>
+    <port protocol="tcp" port="12514"/>
+    <port protocol="tcp" port="13514"/>
+  </service>

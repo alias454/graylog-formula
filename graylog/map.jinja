@@ -1,0 +1,188 @@
+# Default settting for base_dir 
+{% set base_dir = salt['pillar.get']('graylog:lookup:graylog:base_dir', '/usr/share') %}
+
+# Setttings based on the server name
+{% set default_config = salt.grains.filter_by({ 
+  'default':
+  {
+    'graylog':
+    {
+      'restart_service_after_state_change': 'true',
+      'install_type': 'package',
+      'latest_tarball': 'graylog-2.2.0-beta.6.tgz', 
+      'use_redirection': 'false', 
+      'base_dir': base_dir,
+      'is_master': 'false',
+      'node_id_file': '/etc/graylog/server/node-id',
+      'password_secret': '',
+      'root_username': 'admin',
+      'root_password_sha2': '',
+      'root_email': '',
+      'root_timezone': 'UTC',
+      'plugin_dir': base_dir + '/graylog-server/plugin',
+      'rest':
+      {
+        'listen_uri': 'http://127.0.0.1:9000/api/',
+        'transport_uri': 'http://192.168.1.1:9000/api/',
+        'enable_cors': 'true',
+        'enable_gzip': 'true',
+        'enable_tls': 'false',
+        'tls_cert_file': '/path/to/graylog.crt',
+        'tls_key_file': '/path/to/graylog.key',
+        'tls_key_password': 'secret',
+        'max_header_size': '8192',
+        'max_initial_line_length': '4096',
+        'thread_pool_size': '16',
+      },
+      'trusted_proxies': '127.0.0.1/32, 0:0:0:0:0:0:0:1/128',
+      'web':
+      {
+        'enable': 'true',
+        'listen_uri': 'http://127.0.0.1:9000/',
+        'endpoint_uri': '',
+        'enable_cors': 'true',
+        'enable_gzip': 'true',
+        'enable_tls': 'false',
+        'tls_cert_file': '/path/to/graylog-web.crt',
+        'tls_key_file': '/path/to/graylog-web.key',
+        'tls_key_password': 'secret',
+        'max_header_size': '8192',
+        'max_initial_line_length': '4096',
+        'thread_pool_size': '16',
+      },
+      'rotation_strategy': 'count',
+      'no_retention': 'false',
+      'retention_strategy': 'delete',
+      'allow_leading_wildcard_searches': 'true',
+      'allow_highlighting': 'true',
+      'elasticsearch':
+      {
+        'config_file': '/etc/graylog/server/elasticsearch.yml',
+        'max_docs_per_index': '20000000',
+        'max_size_per_index': '1073741824',
+        'max_time_per_index': '1d',
+        'disable_version_check': 'true',
+        'max_number_of_indices': '20',
+        'shards': '4',
+        'replicas': '0',
+        'index_prefix': 'graylog',
+        'template_name': 'graylog-internal',
+        'cluster_name': 'graylog',
+        'node_name_prefix': 'graylog-',
+        'discovery_zen_ping_unicast_hosts': '127.0.0.1:9300',
+        'node_master': 'false',
+        'node_data': 'false',
+        'transport_tcp_port': '9350',
+        'http_enabled': 'false',
+        'discovery_zen_ping_multicast_enabled': 'false',
+        'cluster_discovery_timeout': '5000',
+        'network_host': '0.0.0.0',
+        'network_bind_host': '',
+        'network_publish_host': '',
+        'discovery_initial_state_timeout': '3s',
+        'analyzer': 'standard',
+        'request_timeout': '2m',
+      },
+      'index_ranges_cleanup_interval': '1h',
+      'output_batch_size': '500',
+      'output_flush_interval': '1',
+      'output_fault_count_threshold': '5',
+      'output_fault_penalty_seconds': '30',
+      'processbuffer_processors': '5',
+      'outputbuffer_processors': '3',
+      'outputbuffer_processor_keep_alive_time': '5000',
+      'outputbuffer_processor_threads_core_pool_size': '3',
+      'outputbuffer_processor_threads_max_pool_size': '30',
+      'udp_recvbuffer_sizes': '1048576',
+      'processor_wait_strategy': 'blocking',
+      'ring_size': '65536',
+      'inputbuffer_ring_size': '65536',
+      'inputbuffer_processors': '2',
+      'inputbuffer_wait_strategy': 'blocking',
+      'message_journal':
+      {
+        'enabled': 'true',
+        'dir': '/var/lib/graylog-server/journal',
+        'max_age': '12h',
+        'max_size': '5gb',
+        'flush_age': '1m',
+        'flush_interval': '1000000',
+        'segment_age': '1h',
+        'segment_size': '100mb',
+      },
+      'async_eventbus_processors': '4',
+      'lb_recognition_period_seconds': '0',
+      'lb_throttle_threshold_percentage': '95',
+      'stream_processing_timeout': '2000',
+      'stream_processing_max_faults': '3',
+      'alert_check_interval': '60',
+      'output_module_timeout': '10000',
+      'stale_master_timeout': '2000',
+      'shutdown_timeout': '30000',
+      'mongodb':
+      {
+        'uri': 'mongodb://grayloguser:secret@localhost:27017/graylog',
+        'max_connections': '1000',
+        'threads_allowed_to_block_multiplier': '5',
+      },
+      'rules_file': '/etc/graylog/server/rules.drl',
+      'transport_email':
+      {
+        'enabled': 'false',
+        'hostname': 'mail.domain.tld',
+        'port': '465',
+        'use_auth': 'true',
+        'use_tls': 'true',
+        'use_ssl': 'true',
+        'auth_username': 'you@domain.tld',
+        'auth_password': 'secret',
+        'subject_prefix': '[graylog]',
+        'from_email': 'graylog@domain.tld',
+        'web_interface_url': 'http://graylog00.domain.tld',
+      },
+      'http_connect_timeout': '5s',
+      'http_read_timeout': '10s',
+      'http_write_timeout': '10s',
+      'http_proxy_uri': '',
+      'disable_index_optimization': 'true',
+      'index_optimization_max_num_segments': '1',
+      'gc_warning_threshold': '1s',
+      'ldap_connection_timeout': '2000',
+      'disable_sigar': 'false',
+      'dashboard_widget_default_cache_time': '10s',
+      'field_list_limit': '150',
+      'timeout_default': '15s',
+      'content_packs_loader_enabled': 'false',
+      'content_packs_dir': base_dir + '/graylog-server/contentpacks',
+      'content_packs_auto_load': 'grok-patterns.json',
+      'proxied_requests_thread_pool_size': '32',
+      'log4j2_log_path': '/var/log/graylog-server',
+      'input_source': [],
+      'heap_size': '1g',
+    },
+  },
+  'graylog00':
+  {
+    'graylog':
+    {
+      'is_master': 'true',
+    },
+  },
+}, grain='host', base='default') %}
+
+# Configure firewall from pillar
+{% set firewall = {
+  'firewall':
+  {
+    'firewalld':
+    {
+      'status': salt['pillar.get']('firewall:firewalld:status', 'InActive'),
+    },
+  },
+} %}
+
+# update the default config 
+{% do default_config.update(firewall) %}
+
+# Merge the default settings with pillar data
+{% set host_lookup = salt['pillar.get']('graylog:lookup', default=default_config, merge=True) %}
