@@ -1,5 +1,6 @@
 {% from "graylog/map.jinja" import host_lookup as config with context %}
 
+# Manage graylog server config file using template
 /etc/graylog/server/server.conf:
   file.managed:
     - source: salt://graylog/files/server.conf
@@ -9,6 +10,16 @@
     - mode: '0644'
     - makedirs: true
 
+# Manage graylog sysconfig file using template
+/etc/sysconfig/graylog-server:
+  file.managed:
+    - source: salt://graylog/files/graylog-server.sysconfig
+    - template: jinja
+    - user: root
+    - group: root
+    - mode: '0644'
+
+# Manage graylog log4j2 file using template
 /etc/graylog/server/log4j2.xml:
   file.managed:
     - source: salt://graylog/files/log4j2.xml
@@ -18,6 +29,7 @@
     - mode: '0644'
     - makedirs: true
 
+# Manage graylog node-id file
 /etc/graylog/server/node-id:
   file.managed:
     - user: graylog
@@ -25,6 +37,7 @@
     - mode: '0644'
     - makedirs: true
 
+# Manage log directory
 {{ config.graylog.log4j2_log_path }}:
   file.directory:
     - user: graylog
@@ -32,6 +45,7 @@
     - mode: '0750'
     - makedirs: true
 
+# Manage journal directory
 {{ config.graylog.message_journal.dir }}:
   file.directory:
     - user: graylog
