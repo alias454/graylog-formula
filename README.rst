@@ -10,7 +10,7 @@ Requirements
 You must be running elasticsearch and mongodb to use Graylog.
 
 Formulas exist to help with installation and management of
-the necesary GELP stack components, which are; a firewall,
+the necessary GELP stack components, which are; a firewall,
 elasticsearch, and mongodb at a bare minimum.
 
 firewall-formula
