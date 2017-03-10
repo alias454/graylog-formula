@@ -46,6 +46,10 @@ Manage repo file and GPG key on RHEL/CentOS 7 systems
 Install graylog and additional prerequisite packages or
 configure user, files, and folders if installing from a tar file
 
+``graylog-plugins``
+------------
+Manage 3rd party Graylog plugins
+
 ``graylog-config``
 ------------
 Manage configuration file placement
@@ -58,3 +62,4 @@ Sets up the graylog service and makes sure it is running on RHEL/CentOS 7 system
 ------------
 Optionally setup firewalld rules for graylog inputs, the web interface, and disable iptables
 Requires the firewall-formula or another method of managing the firewalld service
+

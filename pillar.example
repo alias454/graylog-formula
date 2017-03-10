@@ -30,6 +30,11 @@ graylog:
       allow_leading_wildcard_searches: 'true'                   # Use a leading wildcard in searches
       allow_highlighting: 'true'                                # Highlight search term in search results
       trusted_proxies: '127.0.0.1/32, 0:0:0:0:0:0:0:1/128'      # Trusted proxies
+      use_addon_plugins: 'false'                                # Manage additional Graylog plugins
+      addon_plugins: [
+                       'graylog-plugin-jabber-2.0.0.jar',
+                       'graylog-plugin-threatintel-0.10.0.jar',
+                     ]
       rest: 
         listen_uri: 'http://127.0.0.1:9000/api/'                # Rest listen uri external ip if no reverse proxy
         transport_uri: ''                                       # Rest transport uri
