@@ -50,6 +50,10 @@ configure user, files, and folders if installing from a tar file
 ------------
 Manage 3rd party Graylog plugins
 
+To use this formula for managing 3rd party graylog plugins
+cd to the files directory (Something like /srv/salt/graylog/files)
+and use wget to download the jar files. 
+
 ``graylog-config``
 ------------
 Manage configuration file placement
