@@ -52,6 +52,10 @@ graylog:
         enable_gzip: 'true'                                     # Enable gzip
         thread_pool_size: '16'                                  # Web thread pool size
       elasticsearch:
+        hosts: 'http://127.0.0.1:9200'                          # ES hosts Graylog should connect to
+        socket_timeout: '60s'                                   # Response wait from an ES server (default 60s)
+        max_total_connections: '20'                             # Total connections to ES cluster (default 20)
+        max_total_connections_per_route: '2'                    # Total connections per ES node (default 2)
         shards: '2'                                             # Number of shards to use
         replicas: '0'                                           # Number of replicas to use
         index_prefix: 'graylog'                                 # ES index prefix
@@ -68,7 +72,7 @@ graylog:
         subject_prefix: '[graylog]'                             # Email subject prefix
         from_email: 'graylog@domain.tld'                        # Email from address
         web_interface_url: 'http://graylog00.domain.tld'        # Email web interface link
-      mongodb:
+      mongodb:                                                  # MongoDB connection string
         uri: 'mongodb://gluser:password@localhost:27017/graylog'
       sources:
         - name: 'graylog00'                     # Name of node
