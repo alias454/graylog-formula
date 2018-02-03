@@ -21,14 +21,6 @@ include:
     - group: root
     - mode: '0640'
 
-# Setup firewall service file for transport 
-/etc/firewalld/services/gl-transport.xml:
-  file.managed:
-    - source: salt://graylog/files/gl-transport.xml
-    - user: root
-    - group: root
-    - mode: '0640'
-
 # This may be irrelevant
 command-restorecon-graylog-/etc/firewalld/services:
   cmd.run:
@@ -36,7 +28,6 @@ command-restorecon-graylog-/etc/firewalld/services:
     - unless:
       - ls -Z /etc/firewalld/services/graylog-ipt.xml |grep firewalld_etc_rw_t
       - ls -Z /etc/firewalld/services/graylog-web.xml |grep firewalld_etc_rw_t
-      - ls -Z /etc/firewalld/services/gl-transport.xml |grep firewalld_etc_rw_t
 
 # Reload firewalld so graylog rules take effect
 command-graylog-firewalld-reload:
@@ -55,19 +46,6 @@ command-add-perm-rich-rule-allow-graylog-ipt-from-{{ ipt_server }}:
     - unless: firewall-cmd --zone=internal --list-all |grep graylog-ipt
 
 {% endfor %} # end ipt_server
-
-# Loop through list of sources and create transport firewall rules
-{% for node in config.graylog.sources %}
-
-# Add permanent service for graylog transport
-command-add-perm-rich-rule-allow-gl-transport-to-{{ node.name }}:
-  cmd.run:
-    - name: firewall-cmd --add-rich-rule="rule family="ipv4" source address="{{ node.ip }}{{ node.mask }}" service name="gl-transport" accept" --permanent
-    - onchanges_in:
-      - cmd: command-graylog-firewalld-reload
-    - unless: firewall-cmd --zone=internal --list-all |grep gl-transport
-
-{% endfor %} # end node
 
 # Add redirection for web frontend if use_redirection is true
 # forwards port 80 to port 9000

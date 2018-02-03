@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-  <service>
-    <short>gl-transport</short>
-    <description>transport for graylog internal elasticsearch nodes.</description>
-    <port protocol="tcp" port="9350"/>
-  </service>

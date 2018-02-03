@@ -74,9 +74,4 @@ graylog:
         web_interface_url: 'http://graylog00.domain.tld'        # Email web interface link
       mongodb:                                                  # MongoDB connection string
         uri: 'mongodb://gluser:password@localhost:27017/graylog'
-      sources:
-        - name: 'graylog00'                     # Name of node
-          master: 'true'                        # Node is Master
-          ip: '192.168.2.20'                    # IP address for this node
-          mask: '/32'                           # Subnet Mask for this node
-          fqdn: 'graylog00.alias454.local'      # FQDN for this node
+
