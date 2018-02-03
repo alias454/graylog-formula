@@ -9,7 +9,7 @@ package-install-graylog-server:
     - require_in:
       - service: service-graylog-server
     - require:
-      - file: /etc/yum.repos.d/Graylog-2.1.repo
+      - pkgrepo: graylog_repo
 
 {% elif config.graylog.install_type == 'tarball' %}
 

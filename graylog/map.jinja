@@ -8,8 +8,11 @@
     'graylog':
     {
       'restart_service_after_state_change': 'true',
+      'repo_version': '2.2'
+      'repo_baseurl': 'https://packages.graylog2.org/repo/el/stable/2.2/$basearch/'
+      'repo_gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-graylog'
       'install_type': 'package',
-      'latest_tarball': 'graylog-2.2.0-beta.6.tgz', 
+      'latest_tarball': 'graylog-2.2.3.tgz', 
       'use_redirection': 'false', 
       'base_dir': base_dir,
       'is_master': 'false',
