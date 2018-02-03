@@ -26,6 +26,11 @@ If using mongo authentication configure a DB in mongo first.
 Requires the mongodb-formula to include correct mongodb states or
 one can manually created the appropriate database and user.
 
+Releases
+================
+View available relases
+https://github.com/alias454/graylog-formula/releases
+
 Available states
 ================
 
