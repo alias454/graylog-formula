@@ -1,7 +1,9 @@
+{% from "graylog/map.jinja" import host_lookup as config with context %}
+
 include:
   - .graylog-repo
   - .graylog-package
   - .graylog-plugins
   - .graylog-config
   - .graylog-service
-  - .graylog-firewalld
+  - .{{ config.firewall.firewall_include }}

@@ -2,7 +2,7 @@
 graylog-formula
 ================
 
-A saltstack formula that can be used to manage graylog installations on RHEL based systems using a package or tar file.
+A saltstack formula that can be used to manage graylog installations on RHEL nd Debian based systems using a package or tar file.
 
 Requirements
 ================
@@ -44,7 +44,7 @@ Available states
 
 ``graylog-repo``
 ------------
-Manage repo file and GPG key on RHEL/CentOS 7 systems
+Manage repo file and GPG key on RHEL/CentOS 7 and Debian systems
 
 ``graylog-package``
 ------------
@@ -65,10 +65,15 @@ Manage configuration file placement
 
 ``graylog-service``
 ------------
-Sets up the graylog service and makes sure it is running on RHEL/CentOS 7 systems
+Sets up the graylog service and makes sure it is running
 
 ``graylog-firewalld``
 ------------
 Optionally setup firewalld rules for graylog inputs, the web interface, and disable iptables
 Requires the firewall-formula or another method of managing the firewalld service
+
+``graylog-iptables``
+------------
+Optionally setup iptables rules for graylog inputs, the web interface, and disable firewalld
+Requires the firewall-formula or another method of managing the iptables service
 

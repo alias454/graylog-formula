@@ -26,10 +26,10 @@ service-graylog-server:
     - enable: True
     - require:
       - file: /usr/lib/systemd/system/graylog-server.service
-      - file: /etc/sysconfig/graylog-server
+      - file: {{ config.graylog.startup_overrides_path }}
       - file: {{ config.graylog.base_dir }}/graylog-server/bin/graylog-server
-    {% if config.graylog.restart_service_after_state_change == 'true' %}
+  {% if config.graylog.restart_service_after_state_change == 'true' %}
     - watch:
       - file: /etc/graylog/server/server.conf
-      - file: /etc/sysconfig/graylog-server
-     {% endif %}
+      - file: {{ config.graylog.startup_overrides_path }}
+  {% endif %}

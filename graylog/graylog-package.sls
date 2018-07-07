@@ -1,5 +1,5 @@
 {% from "graylog/map.jinja" import host_lookup as config with context %}
-{% if config.graylog.install_type == 'package' %}
+{% if config.package.install_type == 'package' %}
 
 # Install graylog from a package
 package-install-graylog-server:
@@ -11,7 +11,7 @@ package-install-graylog-server:
     - require:
       - pkgrepo: graylog_repo
 
-{% elif config.graylog.install_type == 'tarball' %}
+{% elif config.package.install_type == 'tarball' %}
 
 # If installing fom tarball a lot more steps must be completed
 # Create group as a system group 
@@ -89,7 +89,6 @@ command-move-{{ config.graylog.latest_tarball }}:
   file.absent:
     - require:
       - file: {{ config.graylog.content_packs_dir }}/grok-patterns.json
-
 
 # Remove data folder because we move contentpacks out of it
 {{ config.graylog.base_dir }}/graylog-server/data:

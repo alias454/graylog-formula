@@ -1,5 +1,5 @@
 {% from "graylog/map.jinja" import host_lookup as config with context %}
-{% if config.graylog.install_type == 'package' %}
+{% if config.package.install_type == 'package' %}
 # Installing from package
 
 # Configure repo file for RHEL based systems
@@ -9,10 +9,10 @@ graylog_repo:
     - name: Graylog
     - comments: |
         # Managed by Salt Do not edit
-        # Graylog repository for {{ config.graylog.repo_version }} packages
-    - baseurl: {{ config.graylog.repo_baseurl }}
+        # Graylog repository for {{ config.package.repo_version }} packages
+    - baseurl: {{ config.package.repo_baseurl }}
     - gpgcheck: 1
-    - gpgkey: {{ config.graylog.repo_gpgkey }}
+    - gpgkey: {{ config.package.repo_gpgkey }}
     - enabled: 1
 
 # Configure GPG key file for repo
@@ -24,6 +24,22 @@ graylog_repo:
     - group: root
     - onchanges:
       - pkgrepo: graylog_repo
+
+# Configure repo file for Debian based systems
+{% elif salt.grains.get('os_family') == 'Debian' %}
+# Import keys for Graylog
+command-apt-key-graylog:
+  cmd.run:
+    - name: apt-key adv --fetch-keys {{ config.package.repo_gpgkey }}
+    - unless: apt-key list torch
+
+graylog_repo:
+  pkgrepo.managed:
+    - name: {{ config.package.repo_baseurl }} /
+    - file: /etc/apt/sources.list.d/graylog.list
+    - comments: |
+        # Managed by Salt Do not edit
+        # Graylog repository for {{ config.package.repo_version }} packages (Debian) 
 {% endif %}
 
 {% endif %}

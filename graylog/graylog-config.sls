@@ -10,8 +10,8 @@
     - mode: '0644'
     - makedirs: true
 
-# Manage graylog sysconfig file using template
-/etc/sysconfig/graylog-server:
+# Manage graylog-server file in sysconfig/default using template
+{{ config.graylog.startup_overrides_path }}:
   file.managed:
     - source: salt://graylog/files/graylog-server.sysconfig
     - template: jinja
