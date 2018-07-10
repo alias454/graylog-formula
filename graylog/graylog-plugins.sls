@@ -9,6 +9,10 @@
     - user: graylog
     - group: graylog
     - mode: '0644'
+  {% if config.graylog.restart_service_after_state_change == 'true' %}
+    - watch_in:
+      - service: service-graylog-server
+  {% endif %}
 {% endfor %}
 
 {% endif %}
