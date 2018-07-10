@@ -20,6 +20,7 @@ include:
     - user: root
     - group: root
     - mode: '0640'
+    - reload_modules: True
 
 # This may be irrelevant
 command-restorecon-graylog-/etc/firewalld/services:
@@ -70,5 +71,8 @@ command-add-perm-rule-graylog-web:
     - require:
       - cmd: command-restorecon-graylog-/etc/firewalld/services
     - unless: grep graylog-web /etc/firewalld/zones/internal.xml
+    - retry:
+        attempts: 2
+        until: True
 
 {% endif %}
