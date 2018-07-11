@@ -2,7 +2,7 @@
 graylog-formula
 ================
 
-A saltstack formula that can be used to manage graylog installations on RHEL nd Debian based systems using a package or tar file.
+A saltstack formula that can be used to manage graylog installations on RHEL and Debian based systems using a package or tar file.
 
 Requirements
 ================
