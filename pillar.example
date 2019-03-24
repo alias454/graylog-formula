@@ -8,7 +8,7 @@ firewall:
     default_zone: 'internal'
 
 # Override host options
-# Graylog docs http://docs.graylog.org/en/2.2/
+# Graylog docs http://docs.graylog.org/en/2.4/
 graylog:
   lookup:
     password_secret: '0OckXe4bwAQapvaqbzsugG2DRBRpE3yL5p95O189YUp5a6uKHVS43b0YeHnFcvOPHtXBYDHiXnKbn59TA1TvqwrRWs5mwXpt'
@@ -17,7 +17,7 @@ graylog:
       firewalld:
         status: 'Active'
     package:
-      latest_tarball: 'graylog-2.4.3.tgz'                       # Name of the release tar file if install type is tarball
+      latest_tarball: 'graylog-2.4.7.tgz'                       # Name of the release tar file if install type is tarball
       install_type: 'package'                                   # Install type can be package or tarball    
     {% if grains['os_family'] == 'RedHat' %}
       repo_version: '2.4'
