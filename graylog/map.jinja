@@ -18,38 +18,27 @@
       'root_password_sha2': '',
       'root_email': '',
       'root_timezone': 'UTC',
-      'use_plugins': 'false',
+      'bin_dir': base_dir + '/graylog-server/bin',
+      'data_dir': '/var/lib//graylog-server',
       'plugin_dir': base_dir + '/graylog-server/plugin',
+      'use_plugins': 'false',
       'use_addon_plugins': 'false',
       'addon_plugins': [],
-      'rest':
+      'http':
       {
-        'listen_uri': 'http://127.0.0.1:9000/api/',
-        'transport_uri': 'http://192.168.1.1:9000/api/',
+        'bind_address': '127.0.0.1:9000',
+        'publish_uri': 'http://192.168.1.1:9000/',
+        'external_uri': 'http://192.168.1.1:9000/',
         'enable_cors': 'true',
         'enable_gzip': 'true',
+        'max_header_size': '8192',
+        'thread_pool_size': '16',
         'enable_tls': 'false',
         'tls_cert_file': '/path/to/graylog.crt',
         'tls_key_file': '/path/to/graylog.key',
         'tls_key_password': 'secret',
-        'max_header_size': '8192',
-        'thread_pool_size': '16',
       },
       'trusted_proxies': '127.0.0.1/32, 0:0:0:0:0:0:0:1/128',
-      'web':
-      {
-        'enable': 'true',
-        'listen_uri': 'http://127.0.0.1:9000/',
-        'endpoint_uri': '',
-        'enable_cors': 'true',
-        'enable_gzip': 'true',
-        'enable_tls': 'false',
-        'tls_cert_file': '/path/to/graylog-web.crt',
-        'tls_key_file': '/path/to/graylog-web.key',
-        'tls_key_password': 'secret',
-        'max_header_size': '8192',
-        'thread_pool_size': '16',
-      },
       'rotation_strategy': 'count',
       'no_retention': 'false',
       'retention_strategy': 'delete',
@@ -83,6 +72,7 @@
         'index_optimization_jobs': '20',
       },
       'index_ranges_cleanup_interval': '1h',
+      'index_field_type_periodical_interval': '1h',
       'output_batch_size': '500',
       'output_flush_interval': '1',
       'output_fault_count_threshold': '5',
@@ -124,7 +114,6 @@
         'max_connections': '1000',
         'threads_allowed_to_block_multiplier': '5',
       },
-      'rules_file': '/etc/graylog/server/rules.drl',
       'transport_email':
       {
         'enabled': 'false',
@@ -143,6 +132,7 @@
       'http_read_timeout': '10s',
       'http_write_timeout': '10s',
       'http_proxy_uri': '',
+      'http_non_proxy_hosts': '',
       'disable_index_optimization': 'true',
       'index_optimization_max_num_segments': '1',
       'gc_warning_threshold': '1s',
@@ -151,11 +141,8 @@
       'dashboard_widget_default_cache_time': '10s',
       'field_list_limit': '150',
       'timeout_default': '15s',
-      'content_packs_loader_enabled': 'false',
-      'content_packs_dir': base_dir + '/graylog-server/contentpacks',
-      'content_packs_auto_load': 'grok-patterns.json',
       'proxied_requests_thread_pool_size': '32',
-      'log4j2_log_path': '/var/log/graylog',
+      'log4j2_log_path': '/var/log/graylog-server',
       'input_source': [],
       'heap_size': '1g',
     },
@@ -202,10 +189,10 @@
   {
     'package':
     {
-      'latest_tarball': 'graylog-2.5.2.tgz',
+      'latest_tarball': 'graylog-3.0.0.tgz',
       'install_type': 'package',
-      'repo_version': '2.5',
-      'repo_baseurl': 'https://packages.graylog2.org/repo/el/stable/2.5/$basearch/',
+      'repo_version': '3.0',
+      'repo_baseurl': 'https://packages.graylog2.org/repo/el/stable/3.0/$basearch/',
       'repo_gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-graylog',
       'java_pkg_name': 'java-1.8.0-openjdk-headless'
     }
@@ -214,10 +201,10 @@
   {
     'package':
     {
-      'latest_tarball': 'graylog-2.5.2.tgz',
+      'latest_tarball': 'graylog-3.0.0.tgz',
       'install_type': 'package',
-      'repo_version': '2.5',
-      'repo_baseurl': 'deb https://packages.graylog2.org/repo/debian/ stable 2.5',
+      'repo_version': '3.0',
+      'repo_baseurl': 'deb https://packages.graylog2.org/repo/debian/ stable 3.0',
       'repo_gpgkey': 'https://packages.graylog2.org/repo/debian/pubkey.gpg',
       'java_pkg_name': 'openjdk-8-jdk-headless'
     }
