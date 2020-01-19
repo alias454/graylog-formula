@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=yaml
+---
 # Set firewall status to Active or InActive for the main
 # firewall service. If you want to disable the firewall,
 # set this to 'InActive' and set the overide firewall
@@ -17,18 +20,18 @@ graylog:
       firewalld:
         status: 'Active'
     package:
-      latest_tarball: 'graylog-3.0.0.tgz'                       # Name of the release tar file if install type is tarball
+      latest_tarball: 'graylog-3.1.4.tgz'                       # Name of the release tar file if install type is tarball
       install_type: 'package'                                   # Install type can be package or tarball    
     {% if grains['os_family'] == 'RedHat' %}
-      repo_version: '3.0'
-      repo_baseurl: 'https://packages.graylog2.org/repo/el/stable/3.0/$basearch/'
+      repo_version: '3.1'
+      repo_baseurl: 'https://packages.graylog2.org/repo/el/stable/3.1/$basearch/'
       repo_gpgkey: 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-graylog'
-      java_pkg_name: 'java-1.8.0-openjdk-headless'
+      java_pkg_name: 'java-11-openjdk-headless'
     {% elif grains['os_family'] == 'Debian' %}
-      repo_version: '3.0'
-      repo_baseurl: 'deb https://packages.graylog2.org/repo/debian/ stable 3.0'
+      repo_version: '3.1'
+      repo_baseurl: 'deb https://packages.graylog2.org/repo/debian/ stable 3.1'
       repo_gpgkey: 'https://packages.graylog2.org/repo/debian/pubkey.gpg'
-      java_pkg_name: 'openjdk-8-jdk-headless'
+      java_pkg_name: 'openjdk-11-jdk-headless'
     {% endif %}
     graylog:
     {% if grains['os_family'] == 'RedHat' %}
@@ -52,17 +55,17 @@ graylog:
       addon_plugins: [
                      ]
       http: 
-        bind_address: '127.0.0.1:9000'                          # HTTP bind address defaults to localhost
-        publish_uri: 'http://192.168.1.1:9000/'                 # URI of Graylog which is used to communicate with other Graylog nodes
-        external_uri: 'http://192.168.1.1:9000/'                # URI which will be used by Graylog to communicate with the Graylog REST API
+        bind_address: '{{ grains.ipv4[1] }}:9000'               # HTTP bind address defaults to localhost
+        publish_uri: 'http://{{ grains.ipv4[1] }}:9000/'        # URI of Graylog which is used to communicate with other Graylog nodes
+        external_uri: 'http://{{ grains.ipv4[1] }}:9000/'       # URI which will be used by Graylog to communicate with the Graylog REST API
         enable_cors: 'true'                                     # Enable CORS
         enable_gzip: 'true'                                     # Enable gzip
         thread_pool_size: '16'                                  # Web thread pool size
       elasticsearch:
         hosts: 'http://127.0.0.1:9200'                          # ES hosts Graylog should connect to
         socket_timeout: '60s'                                   # Response wait from an ES server (default 60s)
-        max_total_connections: '20'                             # Total connections to ES cluster (default 20)
-        max_total_connections_per_route: '2'                    # Total connections per ES node (default 2)
+        max_total_connections: '200'                            # Total connections to ES cluster (default 20)
+        max_total_connections_per_route: '20'                   # Total connections per ES node (default 2)
         shards: '2'                                             # Number of shards to use
         replicas: '0'                                           # Number of replicas to use
         index_prefix: 'graylog'                                 # ES index prefix

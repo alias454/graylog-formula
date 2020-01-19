@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=jinja
+
 # Default settting for base_dir 
 {% set base_dir = salt['pillar.get']('graylog:lookup:graylog:base_dir', '/usr/share') %}
 
@@ -50,13 +53,14 @@
         'connect_timeout': '10s',
         'socket_timeout': '60s',
         'idle_timeout': '-1s',
-        'max_total_connections': '20',
-        'max_total_connections_per_route': '2',
+        'max_total_connections': '200',
+        'max_total_connections_per_route': '20',
         'max_retries': '2',
         'discovery_enabled': 'true',
         'discovery_filter': 'rack:42',
         'discovery_frequency': '30s',
         'compression_enabled': 'true',
+        'use_expect_continue': 'true',
         'max_docs_per_index': '20000000',
         'max_size_per_index': '1073741824',
         'max_time_per_index': '1d',
@@ -145,9 +149,15 @@
       'log4j2_log_path': '/var/log/graylog-server',
       'input_source': [],
       'heap_size': '1g',
+      'processing_status':
+      {
+        'persist_interval': '1s',
+        'update_threshold': '1m',
+        'journal_write_rate_threshold': '1'
+      },
     },
   },
-  'graylog00':
+  'esnode00':
   {
     'graylog':
     {
@@ -189,24 +199,24 @@
   {
     'package':
     {
-      'latest_tarball': 'graylog-3.0.0.tgz',
+      'latest_tarball': 'graylog-3.1.4.tgz',
       'install_type': 'package',
-      'repo_version': '3.0',
-      'repo_baseurl': 'https://packages.graylog2.org/repo/el/stable/3.0/$basearch/',
+      'repo_version': '3.1',
+      'repo_baseurl': 'https://packages.graylog2.org/repo/el/stable/3.1/$basearch/',
       'repo_gpgkey': 'file:///etc/pki/rpm-gpg/RPM-GPG-KEY-graylog',
-      'java_pkg_name': 'java-1.8.0-openjdk-headless'
+      'java_pkg_name': 'java-11-openjdk-headless'
     }
   },
   'Debian':
   {
     'package':
     {
-      'latest_tarball': 'graylog-3.0.0.tgz',
+      'latest_tarball': 'graylog-3.1.4.tgz',
       'install_type': 'package',
-      'repo_version': '3.0',
-      'repo_baseurl': 'deb https://packages.graylog2.org/repo/debian/ stable 3.0',
+      'repo_version': '3.1',
+      'repo_baseurl': 'deb https://packages.graylog2.org/repo/debian/ stable 3.1',
       'repo_gpgkey': 'https://packages.graylog2.org/repo/debian/pubkey.gpg',
-      'java_pkg_name': 'openjdk-8-jdk-headless'
+      'java_pkg_name': 'openjdk-11-jdk-headless'
     }
   }
 } %}

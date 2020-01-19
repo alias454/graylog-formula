@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=sls
+
 {% from "graylog/map.jinja" import host_lookup as config with context %}
 {% if config.graylog.use_addon_plugins == 'true' %}
 

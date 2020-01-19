@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+# vim: ft=sls
+
 {% from "graylog/map.jinja" import host_lookup as config with context %}
 
 # Manage graylog server config file using template

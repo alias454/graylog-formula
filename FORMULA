@@ -1,0 +1,6 @@
+name: graylog
+os: Debian, Ubuntu, RedHat, CentOS
+os_family: Debian, RedHat
+summary: graylog formula
+description: Formula to install Graylog on RHEL and Debian based systems. 
+top_level_dir: graylog
